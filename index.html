@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>FitLife · Amir Makayeh · Trainerize Plan</title>
+<meta name="color-scheme" content="dark" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Syne:wght@500;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --bg: #07080a;
+  --bg2: #0e1014;
+  --panel: #12151b;
+  --panel2: #171b23;
+  --line: rgba(255,255,255,.08);
+  --line2: rgba(255,255,255,.14);
+  --text: #f4f1ea;
+  --muted: #9a9488;
+  --muted2: #6f6a60;
+  --accent: #ff5a1f;
+  --accent2: #ffb020;
+  --green: #3ddc97;
+  --blue: #5b8cff;
+  --pink: #ff5d8f;
+  --shadow: 0 24px 60px rgba(0,0,0,.45);
+  --radius: 22px;
+  --radius-sm: 14px;
+  --pad: clamp(14px, 2.5vw, 28px);
+  --safe-b: env(safe-area-inset-bottom, 0px);
+}
+* { box-sizing: border-box; }
+html, body { margin:0; padding:0; background:var(--bg); color:var(--text); }
+body {
+  font-family: "DM Sans", system-ui, sans-serif;
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(255,90,31,.18), transparent 55%),
+    radial-gradient(900px 500px at 100% 0%, rgba(91,140,255,.12), transparent 50%),
+    radial-gradient(700px 400px at 50% 100%, rgba(61,220,151,.06), transparent 50%),
+    var(--bg);
+}
+html[data-lang="ar"] body { font-family: "IBM Plex Sans Arabic", "DM Sans", sans-serif; }
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; border:0; background:none; }
+img, video { max-width:100%; display:block; }
+a { color: inherit; }
+
+.app { max-width: 1280px; margin: 0 auto; padding: 0 var(--pad) calc(110px + var(--safe-b)); }
+
+/* Top */
+.top {
+  position: sticky; top:0; z-index:40;
+  backdrop-filter: blur(16px) saturate(140%);
+  background: rgba(7,8,10,.78);
+  border-bottom: 1px solid var(--line);
+}
+.top-inner {
+  max-width:1280px; margin:0 auto; padding:14px var(--pad);
+  display:flex; gap:14px; align-items:center; justify-content:space-between;
+}
+.brand { display:flex; gap:12px; align-items:center; min-width:0; }
+.logo {
+  width:42px; height:42px; border-radius:14px;
+  background: linear-gradient(135deg, var(--accent), #ff8a3d 55%, var(--accent2));
+  display:grid; place-items:center; font-family:Syne,sans-serif; font-weight:800; letter-spacing:-.04em;
+  box-shadow: 0 10px 30px rgba(255,90,31,.35);
+  flex: none;
+}
+.brand h1 {
+  margin:0; font-family:Syne,sans-serif; font-size: clamp(16px, 2.4vw, 22px);
+  letter-spacing:-.04em; line-height:1.05; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.brand p { margin:3px 0 0; color:var(--muted); font-size:12px; }
+.top-actions { display:flex; gap:8px; align-items:center; flex:none; }
+.pill {
+  border:1px solid var(--line2); background:rgba(255,255,255,.03);
+  border-radius:999px; padding:9px 12px; font-size:12px; color:var(--muted);
+  transition: .18s ease;
+}
+.pill:hover, .pill.active { border-color: rgba(255,90,31,.5); color:var(--text); background: rgba(255,90,31,.1); }
+.pill.strong { background: var(--text); color:#0a0a0a; border-color: transparent; font-weight:700; }
+
+/* Hero */
+.hero {
+  margin-top: 22px;
+  display:grid; grid-template-columns: 1.4fr .9fr; gap:18px;
+}
+.hero-card, .side-card {
+  background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+  border:1px solid var(--line);
+  border-radius: calc(var(--radius) + 4px);
+  box-shadow: var(--shadow);
+  overflow:hidden;
+}
+.hero-card { padding: 24px; position:relative; }
+.hero-card::before {
+  content:""; position:absolute; inset:auto -20% -40% auto; width:280px; height:280px;
+  background: radial-gradient(circle, rgba(255,90,31,.25), transparent 65%);
+  pointer-events:none;
+}
+.kicker {
+  display:inline-flex; gap:8px; align-items:center;
+  font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent2);
+  margin-bottom:12px;
+}
+.hero h2 {
+  margin:0; font-family:Syne,sans-serif; font-size: clamp(28px, 5vw, 46px);
+  line-height:.95; letter-spacing:-.05em; max-width: 16ch;
+}
+.hero-sub { margin:14px 0 0; color:var(--muted); line-height:1.6; max-width:52ch; font-size:14px; }
+.meta-row { display:flex; flex-wrap:wrap; gap:8px; margin-top:18px; }
+.tag {
+  font-size:11px; border:1px solid var(--line2); border-radius:999px; padding:7px 10px; color:var(--muted);
+  background: rgba(0,0,0,.2);
+}
+.tag b { color: var(--text); font-weight:600; }
+
+.side-card { padding:18px; display:grid; gap:14px; align-content:start; }
+.side-card h3 { margin:0; font-family:Syne,sans-serif; letter-spacing:-.03em; font-size:18px; }
+.progress-wrap { display:grid; gap:8px; }
+.progress-bar {
+  height:10px; border-radius:999px; background: rgba(255,255,255,.06); overflow:hidden; border:1px solid var(--line);
+}
+.progress-bar > i { display:block; height:100%; width:0%; background: linear-gradient(90deg, var(--accent), var(--accent2)); transition: width .35s ease; }
+.progress-label { display:flex; justify-content:space-between; color:var(--muted); font-size:12px; }
+.tech-box {
+  border:1px solid var(--line); border-radius:16px; padding:12px 14px; background: rgba(255,255,255,.02);
+}
+.tech-box + .tech-box { margin-top:8px; }
+.tech-box strong { display:block; color:var(--accent2); font-size:12px; letter-spacing:.04em; margin-bottom:4px; }
+.tech-box p { margin:0; color:var(--muted); font-size:12px; line-height:1.55; }
+
+/* Days */
+.day-nav {
+  margin-top: 22px; display:flex; gap:10px; overflow:auto; padding-bottom:4px;
+  scrollbar-width: none;
+}
+.day-nav::-webkit-scrollbar { display:none; }
+.day-btn {
+  flex: 0 0 auto; min-width: 148px;
+  border:1px solid var(--line); background: rgba(255,255,255,.02);
+  border-radius: 18px; padding:14px 16px; text-align:start;
+  transition: .18s ease;
+}
+.day-btn:hover { transform: translateY(-2px); border-color: var(--line2); }
+.day-btn.active {
+  border-color: rgba(255,90,31,.55);
+  background: linear-gradient(180deg, rgba(255,90,31,.16), rgba(255,90,31,.05));
+  box-shadow: 0 12px 30px rgba(255,90,31,.12);
+}
+.day-btn .d-title { font-family:Syne,sans-serif; font-weight:700; letter-spacing:-.03em; font-size:15px; }
+.day-btn .d-sub { margin-top:4px; color:var(--muted); font-size:11px; }
+.day-btn .d-prog { margin-top:10px; height:4px; border-radius:99px; background:rgba(255,255,255,.06); overflow:hidden; }
+.day-btn .d-prog > i { display:block; height:100%; width:0; background:var(--green); }
+
+/* Layout body */
+.layout {
+  margin-top: 18px;
+  display:grid; grid-template-columns: minmax(0,1fr) 380px; gap:18px; align-items:start;
+}
+.panel {
+  background: rgba(18,21,27,.85);
+  border:1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.section { padding: 8px; }
+.section-head {
+  display:flex; justify-content:space-between; align-items:end; gap:12px;
+  padding: 14px 12px 10px;
+  position: sticky; top: 68px; z-index:5;
+  background: linear-gradient(180deg, rgba(18,21,27,.98), rgba(18,21,27,.88));
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 8px;
+  border-radius: 16px 16px 0 0;
+}
+.section-head h3 {
+  margin:0; font-family:Syne,sans-serif; letter-spacing:-.03em; font-size:20px;
+}
+.section-head span { color:var(--muted); font-size:12px; }
+
+.cards { display:grid; gap:10px; padding: 0 8px 12px; }
+.card {
+  display:grid; grid-template-columns: 92px minmax(0,1fr) auto; gap:12px; align-items:center;
+  background: var(--panel2);
+  border:1px solid var(--line);
+  border-radius: 18px;
+  padding:10px;
+  transition: .18s ease;
+}
+.card:hover { border-color: rgba(255,90,31,.35); transform: translateY(-1px); }
+.card.done { opacity:.72; }
+.card.done .title { text-decoration: line-through; color: var(--muted); }
+.thumb {
+  width:92px; height:72px; border-radius:14px; overflow:hidden; background:#0a0c10;
+  border:1px solid var(--line); position:relative; flex:none;
+}
+.thumb img { width:100%; height:100%; object-fit:cover; }
+.thumb .ph {
+  width:100%; height:100%; display:grid; place-items:center; color:var(--muted2); font-size:11px; text-align:center; padding:6px;
+  background: linear-gradient(135deg, #151922, #0c0e13);
+}
+.thumb .play {
+  position:absolute; inset:auto 6px 6px auto;
+  width:26px; height:26px; border-radius:50%;
+  background: rgba(0,0,0,.65); border:1px solid rgba(255,255,255,.2);
+  display:grid; place-items:center; font-size:11px; color:#fff;
+}
+.body { min-width:0; }
+.title { margin:0; font-weight:700; font-size:14px; letter-spacing:-.02em; line-height:1.25; }
+.subtitle { margin:3px 0 0; color:var(--muted2); font-size:11px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.stats { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+.stat {
+  font-size:10px; padding:5px 7px; border-radius:999px;
+  border:1px solid var(--line); color:var(--muted); background: rgba(0,0,0,.18);
+}
+.stat.tech { color: var(--accent2); border-color: rgba(255,176,32,.35); background: rgba(255,176,32,.08); }
+.stat.rpe { color: var(--pink); border-color: rgba(255,93,143,.3); }
+.actions { display:flex; flex-direction:column; gap:6px; }
+.icon-btn {
+  width:36px; height:36px; border-radius:12px;
+  border:1px solid var(--line2); background: rgba(255,255,255,.03);
+  display:grid; place-items:center; transition:.15s ease;
+}
+.icon-btn:hover { border-color: var(--accent); color: var(--accent); }
+.icon-btn.on { background: rgba(61,220,151,.12); border-color: rgba(61,220,151,.45); color: var(--green); }
+
+/* Viewer */
+.viewer {
+  position: sticky; top: 78px;
+  max-height: calc(100vh - 96px);
+  overflow:auto;
+  display:grid; grid-template-rows: auto auto 1fr auto;
+}
+.viewer-head { padding:16px 16px 0; }
+.viewer-kicker { font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted2); margin-bottom:8px; }
+.viewer-title { margin:0; font-family:Syne,sans-serif; font-size:24px; letter-spacing:-.04em; line-height:1.05; }
+.viewer-meta { margin-top:8px; color:var(--muted); font-size:12px; line-height:1.5; }
+.player-wrap { padding:14px 16px; }
+.player-frame {
+  border-radius:18px; overflow:hidden; border:1px solid var(--line);
+  background:#000; aspect-ratio:16/10; position:relative;
+}
+.player-frame video { width:100%; height:100%; object-fit:contain; background:#000; }
+.player-frame video:not([hidden]) { position:relative; z-index:2; }
+.player-empty {
+  position:absolute; inset:0; display:grid; place-items:center; text-align:center;
+  color:var(--muted); font-size:13px; padding:20px; line-height:1.6; z-index:1;
+  background:
+    linear-gradient(180deg, rgba(255,90,31,.08), transparent 40%),
+    #0a0c10;
+}
+.player-empty[hidden] { display:none !important; }
+.banner {
+  display:none; margin:14px 0 0; padding:12px 14px; border-radius:14px;
+  border:1px solid rgba(255,90,31,.35); background:rgba(255,90,31,.1);
+  color:#ffd2c0; font-size:12px; line-height:1.55;
+}
+.banner.show { display:block; }
+.banner code { color:#fff; }
+.viewer-cues { padding:0 16px 16px; display:grid; gap:10px; }
+.cue {
+  border:1px solid var(--line); border-radius:16px; padding:12px;
+  background: rgba(255,255,255,.02); color:var(--muted); font-size:13px; line-height:1.55;
+}
+.cue b { color:var(--text); display:block; margin-bottom:4px; font-size:11px; letter-spacing:.08em; text-transform:uppercase; }
+.timer {
+  margin: 0 16px 16px; padding:14px; border-radius:18px;
+  border:1px solid var(--line); background: linear-gradient(180deg, rgba(91,140,255,.08), rgba(255,255,255,.02));
+}
+.timer .row { display:flex; justify-content:space-between; align-items:center; gap:10px; }
+.timer .time { font-family:Syne,sans-serif; font-size:34px; letter-spacing:-.04em; }
+.timer .btns { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+.tbtn {
+  border-radius:999px; padding:9px 12px; border:1px solid var(--line2);
+  background: rgba(255,255,255,.04); font-size:12px;
+}
+.tbtn.primary { background: var(--text); color:#0a0a0a; border-color:transparent; font-weight:700; }
+
+/* Progression footer card */
+.prog-card { margin-top:18px; padding:18px 20px; }
+.prog-card h3 { margin:0 0 10px; font-family:Syne,sans-serif; letter-spacing:-.03em; }
+.prog-card ul { margin:0; padding-inline-start:18px; color:var(--muted); line-height:1.7; font-size:14px; }
+
+.note {
+  margin-top:12px; color:var(--muted2); font-size:12px; line-height:1.6;
+}
+
+/* Bottom mobile player */
+.mobile-bar {
+  display:none; position:fixed; left:0; right:0; bottom:0; z-index:50;
+  padding:10px 12px calc(10px + var(--safe-b));
+  background: rgba(7,8,10,.92); border-top:1px solid var(--line);
+  backdrop-filter: blur(14px);
+}
+.mobile-bar-inner {
+  max-width:1280px; margin:0 auto; display:flex; gap:10px; align-items:center;
+}
+.mobile-bar .mini-title { font-size:12px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.mobile-bar .mini-sub { font-size:11px; color:var(--muted); }
+
+/* RTL */
+html[data-lang="ar"] { direction: rtl; }
+html[data-lang="ar"] .day-btn, html[data-lang="ar"] .section-head, html[data-lang="ar"] .card { text-align: right; }
+html[data-lang="ar"] .hero h2 { max-width: none; }
+
+@media (max-width: 980px) {
+  .hero { grid-template-columns: 1fr; }
+  .layout { grid-template-columns: 1fr; }
+  .viewer { position: static; max-height: none; order: -1; }
+  .mobile-bar { display:block; }
+  .app { padding-bottom: calc(84px + var(--safe-b)); }
+}
+@media (max-width: 620px) {
+  .card { grid-template-columns: 76px minmax(0,1fr) auto; }
+  .thumb { width:76px; height:64px; }
+  .brand p { display:none; }
+}
+</style>
+</head>
+<body>
+  <header class="top">
+    <div class="top-inner">
+      <div class="brand">
+        <div class="logo">FL</div>
+        <div>
+          <h1 data-i18n="brandTitle">FitLife Workout</h1>
+          <p data-i18n="brandSub">3 ON → 1 OFF · SST + FST-7</p>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button class="pill" id="langBtn" type="button">AR</button>
+        <button class="pill" id="resetBtn" type="button" data-i18n="reset">Reset</button>
+        <button class="pill strong" id="startBtn" type="button" data-i18n="startDay">Start day</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="app">
+    <section class="hero">
+      <div class="hero-card">
+        <div class="kicker" data-i18n="kicker">Plansmith · Trainerize videos</div>
+        <h2 id="heroTitle"></h2>
+        <p class="hero-sub" id="heroSub" data-i18n="heroSub">Tap any exercise to load its Trainerize demo video. Check off sets as you train. Rest timer sits in the player panel.</p>
+        <div class="banner" id="mediaBanner"></div>
+        <div class="meta-row" id="metaRow"></div>
+      </div>
+      <div class="side-card">
+        <h3 data-i18n="todayProgress">Session progress</h3>
+        <div class="progress-wrap">
+          <div class="progress-label"><span id="progText">0 / 0</span><span id="progPct">0%</span></div>
+          <div class="progress-bar"><i id="progFill"></i></div>
+        </div>
+        <div>
+          <div class="tech-box"><strong>SST-RIV</strong><p id="techSST"></p></div>
+          <div class="tech-box"><strong>Cluster</strong><p id="techCluster"></p></div>
+        </div>
+      </div>
+    </section>
+
+    <nav class="day-nav" id="dayNav" aria-label="Training days"></nav>
+
+    <section class="layout">
+      <div>
+        <div class="panel" id="dayPanel"></div>
+        <div class="panel prog-card">
+          <h3 data-i18n="week5">Week 5+ Progression</h3>
+          <ul id="progList"></ul>
+          <p class="note" data-i18n="videoNote">Videos load from your local Trainerize-Library folder. Keep this HTML file next to <code>default/</code> and <code>thumbnails/</code>.</p>
+        </div>
+      </div>
+
+      <aside class="panel viewer" id="viewer">
+        <div class="viewer-head">
+          <div class="viewer-kicker" data-i18n="selectedClip">Selected clip</div>
+          <h2 class="viewer-title" id="viewerTitle">—</h2>
+          <div class="viewer-meta" id="viewerMeta" data-i18n="pickExercise">Pick an exercise to load form + video.</div>
+        </div>
+        <div class="player-wrap">
+          <div class="player-frame" id="playerFrame">
+            <div class="player-empty" id="playerEmpty" data-i18n="playerEmpty">Trainerize demo appears here.</div>
+            <video id="player" controls playsinline preload="auto" controlslist="nodownload" hidden></video>
+          </div>
+        </div>
+        <div class="viewer-cues">
+          <div class="cue"><b data-i18n="cueLabel">Coaching cue</b><span id="viewerCue">—</span></div>
+          <div class="cue" id="viewerTechBox" hidden><b data-i18n="techniqueLabel">Technique</b><span id="viewerTech">—</span></div>
+        </div>
+        <div class="timer">
+          <div class="row">
+            <div>
+              <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2)" data-i18n="restTimer">Rest timer</div>
+              <div class="time" id="timerDisplay">00:00</div>
+            </div>
+            <button class="tbtn primary" id="timerToggle" type="button" data-i18n="start">Start</button>
+          </div>
+          <div class="btns">
+            <button class="tbtn" data-rest="40" type="button">40s</button>
+            <button class="tbtn" data-rest="45" type="button">45s</button>
+            <button class="tbtn" data-rest="75" type="button">75s</button>
+            <button class="tbtn" data-rest="90" type="button">90s</button>
+            <button class="tbtn" id="timerReset" type="button" data-i18n="reset">Reset</button>
+          </div>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <div class="mobile-bar" id="mobileBar">
+    <div class="mobile-bar-inner">
+      <div style="min-width:0;flex:1">
+        <div class="mini-title" id="miniTitle">FitLife</div>
+        <div class="mini-sub" id="miniSub" data-i18n="tapToPlay">Tap exercise to play video</div>
+      </div>
+      <button class="pill strong" id="jumpViewer" type="button" data-i18n="video">Video</button>
+    </div>
+  </div>
+
+<script id="plan-data" type="application/json">{"meta":{"plan_id":"amir_makayeh_3on1off_20261010","name_en":"Amir Makayeh · 3 ON → 1 OFF","name_ar":"أمير مكيّة · 3 تشغيل → 1 راحة","level":"intermediate+","days_per_week":7,"goal":"recomp / mild cut","priority_muscle":"back + upper chest + waist","mode":"SST + FST-7","duration_weeks":4,"generator":"fitlife freehand + trainerize local","client":"Amir Makayeh"},"techniques":{"SST":{"en":"Feeder → one main 8–10 → one backup cluster 5+5+5+5 @ 10–15s, same load. Shoulders SST = 3–4s eccentric, no cluster. Not stretching.","ar":"تسخين → أساسية 8–10 → كلاستر 5+5+5+5. الأكتاف: نزول 3–4 ث بدون كلاستر. مش إطالة."},"FST-7":{"en":"7 mini-sets. Rest 30–45s small / 45–60s large. Flex 5–10s. Drop load to finish 7. W1 may stop at 5/7.","ar":"7 مجموعات قصيرة. راحة 30–45 ث. اقبض 5–10 ث. خفّف لإكمال 7."}},"progression":{"en":["W1: 2 RIR, FST may stop 5/7","W2: 1 RIR, full FST-7","W3: +2.5–5% on log lifts","W4: deload, no SST / no FST-7"],"ar":["أ1: 2 احتياط","أ2: 1 احتياط","أ3: زد وزن","أ4: تفريغ"]},"days":[{"id":"d1","name_en":"Day 1 — Push · chest","name_ar":"اليوم 1 — صدر","focus_en":"Upper chest · 30 min cardio after","focus_ar":"صدر علوي · كارديو 30 بعد","sections":[{"id":"mob","name_en":"Mobility / activation","name_ar":"إحماء","time":"1×10","items":[{"name_en":"Arm circles","name_ar":"دوائر الذراعين","sets":"1","reps":"10","rest":null,"rpe":null,"technique":null,"kind":"mobility","video":"trainerize-videos/0063_341_arm-circle.mp4","thumb":"thumbs/0063_341_arm-circle.jpg","media_label":"Arm Circle","cue_en":"1 × 10, pain-free.","cue_ar":"1×10."},{"name_en":"Wrist pull","name_ar":"رسغ","sets":"1","reps":"10","rest":null,"rpe":null,"technique":null,"kind":"mobility","video":"trainerize-videos/1906_5042701_static-forearm-stretch.mp4","thumb":"thumbs/1906_5042701_static-forearm-stretch.jpg","media_label":"Static Forearm Stretch","cue_en":"1 × 10, pain-free.","cue_ar":"1×10."},{"name_en":"Kneeling T-spine","name_ar":"صدرية","sets":"1","reps":"10","rest":null,"rpe":null,"technique":null,"kind":"mobility","video":"trainerize-videos/1707_2639_side-lying-thoracic-rotation.mp4","thumb":"thumbs/1707_2639_side-lying-thoracic-rotation.jpg","media_label":"Side Lying Thoracic Rotation","cue_en":"1 × 10, pain-free.","cue_ar":"1×10."},{"name_en":"Wall slide","name_ar":"وول سلايد","sets":"1","reps":"10","rest":null,"rpe":null,"technique":null,"kind":"mobility","video":"trainerize-videos/1424_6584569_mini-band-wall-slides.mp4","thumb":"thumbs/1424_6584569_mini-band-wall-slides.jpg","media_label":null,"cue_en":"1 × 10, pain-free.","cue_ar":"1×10."},{"name_en":"Scap push-up","name_ar":"سكاب بوش أب","sets":"1","reps":"10","rest":null,"rpe":null,"technique":null,"kind":"mobility","video":"trainerize-videos/1687_6253250_scapular-pushups.mp4","thumb":"thumbs/1687_6253250_scapular-pushups.jpg","media_label":"Scapular Pushups","cue_en":"1 × 10, pain-free.","cue_ar":"1×10."},{"name_en":"Band ER","name_ar":"تدوير خارجي","sets":"1","reps":"10","rest":null,"rpe":null,"technique":null,"kind":"mobility","video":"trainerize-videos/1976_654_superband-pull-apart.mp4","thumb":"thumbs/1976_654_superband-pull-apart.jpg","media_label":"Superband Pull Apart","cue_en":"1 × 10, pain-free.","cue_ar":"1×10."},{"name_en":"Scap ret/prot","name_ar":"سكاب","sets":"1","reps":"10","rest":null,"rpe":null,"technique":null,"kind":"mobility","video":"trainerize-videos/1227_450_lat-machine-wide-grip-scapular-retraction.mp4","thumb":"thumbs/1227_450_lat-machine-wide-grip-scapular-retraction.jpg","media_label":"Lat Machine Wide Grip Scapular Retraction","cue_en":"1 × 10, pain-free.","cue_ar":"1×10."}]},{"id":"main","name_en":"Main","name_ar":"الأساسي","time":"","items":[{"name_en":"Pec deck (light)","name_ar":"بك دك","sets":"3","reps":"12–15","rest":"60s","rpe":null,"technique":null,"kind":"main","video":"trainerize-videos/1276_30_machine-seated-chest-fly.mp4","thumb":"thumbs/1276_30_machine-seated-chest-fly.jpg","media_label":"Machine Seated Chest Fly","cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."},{"name_en":"SST — Pec deck clusters","name_ar":"SST بك دك","sets":"1+cluster","reps":"8–10 + 5+5+5+5","rest":"10–15s","rpe":null,"technique":"SST","kind":"main","video":"trainerize-videos/1276_30_machine-seated-chest-fly.mp4","thumb":"thumbs/1276_30_machine-seated-chest-fly.jpg","media_label":"Machine Seated Chest Fly","cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."},{"name_en":"Flat DB press","name_ar":"بنش دمبل","sets":"4","reps":"6–10","rest":"90–120s","rpe":null,"technique":null,"kind":"main","video":"trainerize-videos/0621_20_dumbbell-bench-press.mp4","thumb":"thumbs/0621_20_dumbbell-bench-press.jpg","media_label":"Dumbbell Bench Press","cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."},{"name_en":"Incline BB press","name_ar":"إنكلاين بار","sets":"3","reps":"6–10","rest":"90–120s","rpe":null,"technique":null,"kind":"main","video":"trainerize-videos/0208_25_barbell-incline-bench-press.mp4","thumb":"thumbs/0208_25_barbell-incline-bench-press.jpg","media_label":"Barbell Incline Bench Press","cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."},{"name_en":"Skull crushers","name_ar":"سكل كراشر","sets":"3","reps":"8–12","rest":"75s","rpe":null,"technique":null,"kind":"main","video":"trainerize-videos/0227_42_barbell-skullcrusher.mp4","thumb":"thumbs/0227_42_barbell-skullcrusher.jpg","media_label":"Barbell Skullcrusher","cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."},{"name_en":"FST-7 — Cable crossover","name_ar":"FST-7 كروس","sets":"7","reps":"8–12","rest":"30–45s","rpe":null,"technique":"FST-7","kind":"main","video":"trainerize-videos/0505_552_cable-standing-crossover-chest-fly.mp4","thumb":"thumbs/0505_552_cable-standing-crossover-chest-fly.jpg","media_label":"Cable Standing Crossover Chest Fly","cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."},{"name_en":"Hanging knee raise","name_ar":"رفع ركب","sets":"3","reps":"10–15","rest":"60s","rpe":null,"technique":null,"kind":"main","video":"trainerize-videos/0918_113_hanging-leg-raise.mp4","thumb":"thumbs/0918_113_hanging-leg-raise.jpg","media_label":"Hanging Leg Raise","cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."}]}]},{"id":"d2","name_en":"Day 2 — Pull · back + hams","name_ar":"اليوم 2 — سحب","focus_en":"Lats / mid-back · 30 min after","focus_ar":"ظهر · كارديو 30 بعد","sections":[{"id":"mob","name_en":"Mobility / activation","name_ar":"إحماء","time":"1×10","items":[{"name_en":"Arm circles","name_ar":"دوائر","sets":"1","reps":"10","rest":null,"rpe":null,"technique":null,"kind":"mobility","video":"trainerize-videos/0063_341_arm-circle.mp4","thumb":"thumbs/0063_341_arm-circle.jpg","media_label":"Arm Circle","cue_en":"1 × 10, pain-free.","cue_ar":"1×10."},{"name_en":"Doorway pec","name_ar":"صدر","sets":"1","reps":"10","rest":null,"rpe":null,"technique":null,"kind":"mobility","video":"trainerize-videos/2036_2565_suspension-chest-stretch.mp4","thumb":"thumbs/2036_2565_suspension-chest-stretch.jpg","media_label":"Suspension Chest Stretch","cue_en":"1 × 10, pain-free.","cue_ar":"1×10."},{"name_en":"Sitting sumo twist","name_ar":"تويست","sets":"1","reps":"10","rest":null,"rpe":null,"technique":null,"kind":"mobility","video":"trainerize-videos/2112_695_upper-body-twist.mp4","thumb":"thumbs/2112_695_upper-body-twist.jpg","media_label":"Upper Body Twist","cue_en":"1 × 10, pain-free.","cue_ar":"1×10."},{"name_en":"Kneeling T-spine","name_ar":"صدرية","sets":"1","reps":"10","rest":null,"rpe":null,"technique":null,"kind":"mobility","video":"trainerize-videos/1707_2639_side-lying-thoracic-rotation.mp4","thumb":"thumbs/1707_2639_side-lying-thoracic-rotation.jpg","media_label":"Side Lying Thoracic Rotation","cue_en":"1 × 10, pain-free.","cue_ar":"1×10."},{"name_en":"Scapular pull-up","name_ar":"سكاب بول","sets":"1","reps":"10","rest":null,"rpe":null,"technique":null,"kind":"mobility","video":"trainerize-videos/1227_450_lat-machine-wide-grip-scapular-retraction.mp4","thumb":"thumbs/1227_450_lat-machine-wide-grip-scapular-retraction.jpg","media_label":"Lat Machine Wide Grip Scapular Retraction","cue_en":"1 × 10, pain-free.","cue_ar":"1×10."},{"name_en":"Y raise","name_ar":"Y","sets":"1","reps":"10","rest":null,"rpe":null,"technique":null,"kind":"mobility","video":"trainerize-videos/0952_379_is-ys-and-ts.mp4","thumb":"thumbs/0952_379_is-ys-and-ts.jpg","media_label":"Is Ys and Ts","cue_en":"1 × 10, pain-free.","cue_ar":"1×10."},{"name_en":"Band low row","name_ar":"روو","sets":"1","reps":"10","rest":null,"rpe":null,"technique":null,"kind":"mobility","video":"trainerize-videos/0122_6620942_band-bent-over-row.mp4","thumb":"thumbs/0122_6620942_band-bent-over-row.jpg","media_label":"Band Bent Over Row","cue_en":"1 × 10, pain-free.","cue_ar":"1×10."}]},{"id":"main","name_en":"Main","name_ar":"الأساسي","time":"","items":[{"name_en":"Lying hamstring curl","name_ar":"ليينج كيرل","sets":"3","reps":"10–15","rest":"60s","rpe":null,"technique":null,"kind":"main","video":"trainerize-videos/1271_93_machine-lying-leg-curl.mp4","thumb":"thumbs/1271_93_machine-lying-leg-curl.jpg","media_label":null,"cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."},{"name_en":"Straight-arm pulldown","name_ar":"ستريت آرم","sets":"3","reps":"12–15","rest":"60s","rpe":null,"technique":null,"kind":"main","video":"trainerize-videos/1226_454_lat-machine-straight-arm-pulldown.mp4","thumb":"thumbs/1226_454_lat-machine-straight-arm-pulldown.jpg","media_label":"Lat Machine Straight Arm Pulldown","cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."},{"name_en":"SST — Seated row clusters","name_ar":"SST روو","sets":"1+cluster","reps":"8–10 + 5+5+5+5","rest":"10–15s","rpe":null,"technique":"SST","kind":"main","video":"trainerize-videos/0476_76_cable-seated-row.mp4","thumb":"thumbs/0476_76_cable-seated-row.jpg","media_label":"Cable Seated Row","cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."},{"name_en":"BB row or Pendlay","name_ar":"بار روو","sets":"4","reps":"6–10","rest":"90–120s","rpe":null,"technique":null,"kind":"main","video":"trainerize-videos/0179_74_barbell-bent-over-row.mp4","thumb":"thumbs/0179_74_barbell-bent-over-row.jpg","media_label":"Barbell Bent Over Row","cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."},{"name_en":"Weighted pull-up / lat pulldown","name_ar":"بول أب","sets":"3","reps":"6–10","rest":"90s","rpe":null,"technique":null,"kind":"main","video":"trainerize-videos/1585_437_pull-up.mp4","thumb":"thumbs/1585_437_pull-up.jpg","media_label":"Pull Up","cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."},{"name_en":"Chest-supported DB row","name_ar":"روو مدعوم","sets":"3","reps":"8–12","rest":"90s","rpe":null,"technique":null,"kind":"main","video":"trainerize-videos/1260_79_lying-t-bar-row.mp4","thumb":"thumbs/1260_79_lying-t-bar-row.jpg","media_label":"Lying T-Bar Row","cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."},{"name_en":"RDL","name_ar":"RDL","sets":"3","reps":"8–12","rest":"90s","rpe":null,"technique":null,"kind":"main","video":"trainerize-videos/0222_144_barbell-romanian-deadlift.mp4","thumb":"thumbs/0222_144_barbell-romanian-deadlift.jpg","media_label":"Barbell Romanian Deadlift","cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."},{"name_en":"FST-7 — Straight-arm pulldown","name_ar":"FST-7 ستريت آرم","sets":"7","reps":"8–12","rest":"30–45s","rpe":null,"technique":"FST-7","kind":"main","video":"trainerize-videos/1226_454_lat-machine-straight-arm-pulldown.mp4","thumb":"thumbs/1226_454_lat-machine-straight-arm-pulldown.jpg","media_label":"Lat Machine Straight Arm Pulldown","cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."},{"name_en":"Face pull","name_ar":"فيس بول","sets":"3","reps":"12–15","rest":"60s","rpe":null,"technique":null,"kind":"main","video":"trainerize-videos/0462_491_cable-rope-face-pull.mp4","thumb":"thumbs/0462_491_cable-rope-face-pull.jpg","media_label":"Cable Rope Face Pull","cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."},{"name_en":"BB shrug","name_ar":"شراغ","sets":"3","reps":"10–12","rest":"75s","rpe":null,"technique":null,"kind":"main","video":"trainerize-videos/0224_103_barbell-shrug.mp4","thumb":"thumbs/0224_103_barbell-shrug.jpg","media_label":"Barbell Shrug","cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."}]}]},{"id":"d3","name_en":"Day 3 — Quads + glutes","name_ar":"اليوم 3 — أرجل","focus_en":"Skip cardio","focus_ar":"بدون كارديو","sections":[{"id":"mob","name_en":"Mobility / activation","name_ar":"إحماء","time":"1×10","items":[{"name_en":"Ankle circles","name_ar":"كاحل","sets":"1","reps":"10","rest":null,"rpe":null,"technique":null,"kind":"mobility","video":"trainerize-videos/2011_15229499_supine-ankle-circles.mp4","thumb":"thumbs/2011_15229499_supine-ankle-circles.jpg","media_label":null,"cue_en":"1 × 10, pain-free.","cue_ar":"1×10."},{"name_en":"Standing hip circles","name_ar":"ورك","sets":"1","reps":"10","rest":null,"rpe":null,"technique":null,"kind":"mobility","video":"trainerize-videos/1597_15189013_quadruped-hip-circles.mp4","thumb":"thumbs/1597_15189013_quadruped-hip-circles.jpg","media_label":"Quadruped Hip Circles","cue_en":"1 × 10, pain-free.","cue_ar":"1×10."},{"name_en":"Kneeling hip-flexor","name_ar":"فلكسور","sets":"1","reps":"10","rest":null,"rpe":null,"technique":null,"kind":"mobility","video":"trainerize-videos/1908_2649_static-hip-flexor-stretch.mp4","thumb":"thumbs/1908_2649_static-hip-flexor-stretch.jpg","media_label":"Static Hip Flexor Stretch","cue_en":"1 × 10, pain-free.","cue_ar":"1×10."},{"name_en":"Squat mobility","name_ar":"سكوات موب","sets":"1","reps":"10","rest":null,"rpe":null,"technique":null,"kind":"mobility","video":"trainerize-videos/0349_14861778_bodyweight-squat-to-hinge.mp4","thumb":"thumbs/0349_14861778_bodyweight-squat-to-hinge.jpg","media_label":"Bodyweight Squat To Hinge","cue_en":"1 × 10, pain-free.","cue_ar":"1×10."},{"name_en":"Band abduction","name_ar":"أبدكشن","sets":"1","reps":"10","rest":null,"rpe":null,"technique":null,"kind":"mobility","video":"trainerize-videos/1417_6251404_mini-band-standing-hip-abduction.mp4","thumb":"thumbs/1417_6251404_mini-band-standing-hip-abduction.jpg","media_label":"Mini Band Standing Hip Abduction","cue_en":"1 × 10, pain-free.","cue_ar":"1×10."},{"name_en":"Glute bridge","name_ar":"بريدج","sets":"1","reps":"10","rest":null,"rpe":null,"technique":null,"kind":"mobility","video":"trainerize-videos/0899_363_glute-bridge.mp4","thumb":"thumbs/0899_363_glute-bridge.jpg","media_label":"Glute Bridge","cue_en":"1 × 10, pain-free.","cue_ar":"1×10."}]},{"id":"main","name_en":"Main","name_ar":"الأساسي","time":"","items":[{"name_en":"Lying hamstring curl","name_ar":"كيرل","sets":"3","reps":"10–12","rest":"60s","rpe":null,"technique":null,"kind":"main","video":"trainerize-videos/1271_93_machine-lying-leg-curl.mp4","thumb":"thumbs/1271_93_machine-lying-leg-curl.jpg","media_label":null,"cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."},{"name_en":"SST — Leg extension clusters","name_ar":"SST أكستنشن","sets":"2 clusters","reps":"5+5+5+5","rest":"2 min","rpe":null,"technique":"SST","kind":"main","video":"trainerize-videos/1282_34_machine-seated-leg-extension.mp4","thumb":"thumbs/1282_34_machine-seated-leg-extension.jpg","media_label":"Machine Seated Leg Extension","cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."},{"name_en":"BB squat","name_ar":"سكوات","sets":"4","reps":"6–10","rest":"120s","rpe":null,"technique":null,"kind":"main","video":"trainerize-videos/0173_443_barbell-back-squat.mp4","thumb":"thumbs/0173_443_barbell-back-squat.jpg","media_label":"Barbell Back Squat","cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."},{"name_en":"Bulgarian split squat","name_ar":"بلغاري","sets":"3","reps":"8–12","rest":"90s","rpe":null,"technique":null,"kind":"main","video":"trainerize-videos/0632_416_dumbbell-bulgarian-split-squat.mp4","thumb":"thumbs/0632_416_dumbbell-bulgarian-split-squat.jpg","media_label":"Dumbbell Bulgarian Split Squat","cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."},{"name_en":"Walking lunge","name_ar":"اندفاع","sets":"3","reps":"10/leg","rest":"75s","rpe":null,"technique":null,"kind":"main","video":"trainerize-videos/0819_351_dumbbell-walking-lunge.mp4","thumb":"thumbs/0819_351_dumbbell-walking-lunge.jpg","media_label":"Dumbbell Walking Lunge","cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."},{"name_en":"FST-7 — Cable kickback","name_ar":"FST-7 كيك باك","sets":"7","reps":"10–15","rest":"30–45s","rpe":null,"technique":"FST-7","kind":"main","video":"trainerize-videos/0425_15847882_cable-glute-crossover-kickback.mp4","thumb":"thumbs/0425_15847882_cable-glute-crossover-kickback.jpg","media_label":"Cable Glute Crossover Kickback","cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."},{"name_en":"Standing calf","name_ar":"سمانة","sets":"3","reps":"8–12","rest":"60s","rpe":null,"technique":null,"kind":"main","video":"trainerize-videos/1301_98_machine-standing-calf-raise.mp4","thumb":"thumbs/1301_98_machine-standing-calf-raise.jpg","media_label":null,"cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."}]}]},{"id":"d4","name_en":"Day 4 — Active cardio","name_ar":"اليوم 4 — كارديو","focus_en":"30 min Z2 is the session","focus_ar":"٣٠ د كارديو هي الحصة","sections":[{"id":"main","name_en":"Session","name_ar":"الحصة","time":"30 min","items":[{"name_en":"Incline walk","name_ar":"مشي انكلاين","sets":"1","reps":"30 min","rest":null,"rpe":null,"technique":null,"kind":"cardio","video":null,"thumb":null,"media_label":null,"cue_en":"No local clip. Zone 2 incline walk. Vacuum 3×30s.","cue_ar":"المركبات ~1 تكرار احتياط."}]}]},{"id":"d5","name_en":"Day 5 — Push · shoulders","name_ar":"اليوم 5 — أكتاف","focus_en":"30 min cardio after","focus_ar":"كارديو 30 بعد","sections":[{"id":"mob","name_en":"Mobility / activation","name_ar":"إحماء","time":"1×10","items":[{"name_en":"Arm circles","name_ar":"دوائر","sets":"1","reps":"10","rest":null,"rpe":null,"technique":null,"kind":"mobility","video":"trainerize-videos/0063_341_arm-circle.mp4","thumb":"thumbs/0063_341_arm-circle.jpg","media_label":"Arm Circle","cue_en":"1 × 10, pain-free.","cue_ar":"1×10."},{"name_en":"Wall slide","name_ar":"وول سلايد","sets":"1","reps":"10","rest":null,"rpe":null,"technique":null,"kind":"mobility","video":"trainerize-videos/1424_6584569_mini-band-wall-slides.mp4","thumb":"thumbs/1424_6584569_mini-band-wall-slides.jpg","media_label":null,"cue_en":"1 × 10, pain-free.","cue_ar":"1×10."},{"name_en":"Band pull-apart","name_ar":"بول أبارت","sets":"1","reps":"10","rest":null,"rpe":null,"technique":null,"kind":"mobility","video":"trainerize-videos/1976_654_superband-pull-apart.mp4","thumb":"thumbs/1976_654_superband-pull-apart.jpg","media_label":"Superband Pull Apart","cue_en":"1 × 10, pain-free.","cue_ar":"1×10."},{"name_en":"Wrist pull","name_ar":"رسغ","sets":"1","reps":"10","rest":null,"rpe":null,"technique":null,"kind":"mobility","video":"trainerize-videos/1906_5042701_static-forearm-stretch.mp4","thumb":"thumbs/1906_5042701_static-forearm-stretch.jpg","media_label":"Static Forearm Stretch","cue_en":"1 × 10, pain-free.","cue_ar":"1×10."},{"name_en":"Face pull","name_ar":"فيس بول","sets":"1","reps":"10","rest":null,"rpe":null,"technique":null,"kind":"mobility","video":"trainerize-videos/0462_491_cable-rope-face-pull.mp4","thumb":"thumbs/0462_491_cable-rope-face-pull.jpg","media_label":"Cable Rope Face Pull","cue_en":"1 × 10, pain-free.","cue_ar":"1×10."},{"name_en":"Band spider crawls","name_ar":"سبايدر","sets":"1","reps":"10","rest":null,"rpe":null,"technique":null,"kind":"mobility","video":"trainerize-videos/1976_654_superband-pull-apart.mp4","thumb":"thumbs/1976_654_superband-pull-apart.jpg","media_label":"Superband Pull Apart","cue_en":"1 × 10, pain-free.","cue_ar":"1×10."},{"name_en":"Band ER","name_ar":"تدوير","sets":"1","reps":"10","rest":null,"rpe":null,"technique":null,"kind":"mobility","video":"trainerize-videos/1976_654_superband-pull-apart.mp4","thumb":"thumbs/1976_654_superband-pull-apart.jpg","media_label":"Superband Pull Apart","cue_en":"1 × 10, pain-free.","cue_ar":"1×10."}]},{"id":"main","name_en":"Main","name_ar":"الأساسي","time":"","items":[{"name_en":"DB lateral + face pull + reverse fly triset","name_ar":"تراي ست أكتاف","sets":"3","reps":"12–15","rest":"60s after tri","rpe":null,"technique":null,"kind":"main","video":"trainerize-videos/0711_99_dumbbell-lateral-raise.mp4","thumb":"thumbs/0711_99_dumbbell-lateral-raise.jpg","media_label":"Dumbbell Lateral Raise","cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."},{"name_en":"SST — Machine OH press","name_ar":"SST كتف","sets":"3","reps":"8–10","rest":"90s","rpe":null,"technique":"SST","kind":"main","video":"trainerize-videos/1288_117_machine-seated-shoulder-press.mp4","thumb":"thumbs/1288_117_machine-seated-shoulder-press.jpg","media_label":"Machine Seated Shoulder Press","cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."},{"name_en":"Military press","name_ar":"ملتري","sets":"4","reps":"6–10","rest":"90–120s","rpe":null,"technique":null,"kind":"main","video":"trainerize-videos/0214_14_barbell-overhead-press.mp4","thumb":"thumbs/0214_14_barbell-overhead-press.jpg","media_label":"Barbell Overhead Press","cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."},{"name_en":"Incline DB press","name_ar":"إنكلاين دمبل","sets":"3","reps":"8–12","rest":"90s","rpe":null,"technique":null,"kind":"main","video":"trainerize-videos/0694_21_dumbbell-incline-bench-press.mp4","thumb":"thumbs/0694_21_dumbbell-incline-bench-press.jpg","media_label":"Dumbbell Incline Bench Press","cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."},{"name_en":"FST-7 — Cable lateral","name_ar":"FST-7 لاتيرال","sets":"7","reps":"10–15","rest":"30–45s","rpe":null,"technique":"FST-7","kind":"main","video":"trainerize-videos/0443_17_cable-lateral-raise.mp4","thumb":"thumbs/0443_17_cable-lateral-raise.jpg","media_label":"Cable Lateral Raise","cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."},{"name_en":"Pallof press","name_ar":"بالوف","sets":"3","reps":"10/side","rest":"60s","rpe":null,"technique":null,"kind":"main","video":"trainerize-videos/1440_2431_pallof-press.mp4","thumb":"thumbs/1440_2431_pallof-press.jpg","media_label":"Pallof Press","cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."}]}]},{"id":"d6","name_en":"Day 6 — Legs","name_ar":"اليوم 6 — أرجل","focus_en":"Skip cardio","focus_ar":"بدون كارديو","sections":[{"id":"mob","name_en":"Mobility / activation","name_ar":"إحماء","time":"1×10","items":[{"name_en":"Knee-across-body","name_ar":"ركبة","sets":"1","reps":"10","rest":null,"rpe":null,"technique":null,"kind":"mobility","video":null,"thumb":null,"media_label":null,"cue_en":"1 × 10, pain-free.","cue_ar":"1×10."},{"name_en":"Ankle transfer","name_ar":"كاحل","sets":"1","reps":"10","rest":null,"rpe":null,"technique":null,"kind":"mobility","video":"trainerize-videos/2011_15229499_supine-ankle-circles.mp4","thumb":"thumbs/2011_15229499_supine-ankle-circles.jpg","media_label":null,"cue_en":"1 × 10, pain-free.","cue_ar":"1×10."},{"name_en":"Standing hip circles","name_ar":"ورك","sets":"1","reps":"10","rest":null,"rpe":null,"technique":null,"kind":"mobility","video":"trainerize-videos/1597_15189013_quadruped-hip-circles.mp4","thumb":"thumbs/1597_15189013_quadruped-hip-circles.jpg","media_label":"Quadruped Hip Circles","cue_en":"1 × 10, pain-free.","cue_ar":"1×10."},{"name_en":"Pulse squat","name_ar":"نبض سكوات","sets":"1","reps":"10","rest":null,"rpe":null,"technique":null,"kind":"mobility","video":"trainerize-videos/1587_16650494_pulse-squat-to-curtsy-pulse.mp4","thumb":"thumbs/1587_16650494_pulse-squat-to-curtsy-pulse.jpg","media_label":"Pulse Squat to Curtsy Pulse","cue_en":"1 × 10, pain-free.","cue_ar":"1×10."},{"name_en":"Glute bridge","name_ar":"بريدج","sets":"1","reps":"10","rest":null,"rpe":null,"technique":null,"kind":"mobility","video":"trainerize-videos/0899_363_glute-bridge.mp4","thumb":"thumbs/0899_363_glute-bridge.jpg","media_label":"Glute Bridge","cue_en":"1 × 10, pain-free.","cue_ar":"1×10."},{"name_en":"Kneeling kickback","name_ar":"كيك باك","sets":"1","reps":"10","rest":null,"rpe":null,"technique":null,"kind":"mobility","video":"trainerize-videos/0578_358_donkey-kick.mp4","thumb":"thumbs/0578_358_donkey-kick.jpg","media_label":"Donkey Kick","cue_en":"1 × 10, pain-free.","cue_ar":"1×10."}]},{"id":"main","name_en":"Main","name_ar":"الأساسي","time":"","items":[{"name_en":"Lying hamstring curl","name_ar":"كيرل","sets":"3","reps":"10–15","rest":"60s","rpe":null,"technique":null,"kind":"main","video":"trainerize-videos/1271_93_machine-lying-leg-curl.mp4","thumb":"thumbs/1271_93_machine-lying-leg-curl.jpg","media_label":null,"cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."},{"name_en":"Hack squat or BB squat","name_ar":"هاك","sets":"4","reps":"6–10","rest":"120s","rpe":null,"technique":null,"kind":"main","video":"trainerize-videos/0907_6663466_hack-squat.mp4","thumb":"thumbs/0907_6663466_hack-squat.jpg","media_label":"Hack Squat","cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."},{"name_en":"Walking lunge","name_ar":"اندفاع","sets":"3","reps":"8–12/leg","rest":"75s","rpe":null,"technique":null,"kind":"main","video":"trainerize-videos/0819_351_dumbbell-walking-lunge.mp4","thumb":"thumbs/0819_351_dumbbell-walking-lunge.jpg","media_label":"Dumbbell Walking Lunge","cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."},{"name_en":"SST — Leg-press rest ladder","name_ar":"SST ليج برس","sets":"1 ladder","reps":"timed","rest":null,"rpe":null,"technique":"SST","kind":"main","video":"trainerize-videos/0054_6461753_angled-machine-leg-press.mp4","thumb":"thumbs/0054_6461753_angled-machine-leg-press.jpg","media_label":"Angled Machine Leg Press","cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."},{"name_en":"Leg extension","name_ar":"أكستنشن","sets":"3","reps":"10–15","rest":"60s","rpe":null,"technique":null,"kind":"main","video":"trainerize-videos/1282_34_machine-seated-leg-extension.mp4","thumb":"thumbs/1282_34_machine-seated-leg-extension.jpg","media_label":null,"cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."},{"name_en":"FST-7 — Seated calf","name_ar":"FST-7 سمانة","sets":"7","reps":"12–20","rest":"30–45s","rpe":null,"technique":"FST-7","kind":"main","video":"trainerize-videos/1275_97_machine-seated-calf-raise.mp4","thumb":"thumbs/1275_97_machine-seated-calf-raise.jpg","media_label":null,"cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."},{"name_en":"Standing calf","name_ar":"سمانة","sets":"3","reps":"8–12","rest":"60s","rpe":null,"technique":null,"kind":"main","video":"trainerize-videos/1301_98_machine-standing-calf-raise.mp4","thumb":"thumbs/1301_98_machine-standing-calf-raise.jpg","media_label":null,"cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."}]}]},{"id":"d7","name_en":"Day 7 — Active rest","name_ar":"اليوم 7 — راحة نشطة","focus_en":"Walk is the session","focus_ar":"المشي هي الحصة","sections":[{"id":"main","name_en":"Session","name_ar":"الحصة","time":"30 min","items":[{"name_en":"Incline walk","name_ar":"مشي","sets":"1","reps":"30 min","rest":null,"rpe":null,"technique":null,"kind":"cardio","video":null,"thumb":null,"media_label":null,"cue_en":"No local clip. Zone 2. Vacuum 3×30s.","cue_ar":"المركبات ~1 تكرار احتياط."},{"name_en":"Dead bug","name_ar":"ديد بغ","sets":"3","reps":"10","rest":null,"rpe":null,"technique":null,"kind":"main","video":"trainerize-videos/0558_16645750_dead-bug-iso-hold.mp4","thumb":"thumbs/0558_16645750_dead-bug-iso-hold.jpg","media_label":null,"cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."},{"name_en":"Side plank","name_ar":"سايد بلانك","sets":"3","reps":"20s","rest":null,"rpe":null,"technique":null,"kind":"main","video":"trainerize-videos/1708_690_side-plank.mp4","thumb":"thumbs/1708_690_side-plank.jpg","media_label":"Side Plank","cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."},{"name_en":"Farmer carry","name_ar":"فارمر","sets":"3","reps":"30s","rest":null,"rpe":null,"technique":null,"kind":"main","video":"trainerize-videos/0845_609_farmer-walk.mp4","thumb":"thumbs/0845_609_farmer-walk.jpg","media_label":"Farmer Walk","cue_en":"Compounds ~1 RIR.","cue_ar":"المركبات ~1 تكرار احتياط."}]}]}]}</script>
+<script>
+const PLAN = JSON.parse(document.getElementById('plan-data').textContent);
+const STORAGE_KEY = 'fitlife_plan_' + PLAN.meta.plan_id;
+// Hard root so videos still resolve if this HTML is opened from a temp/copy path.
+const LIB_FILE_ROOT = '';
+const LIB_HTTP_HINT = location.origin + '/';
+
+function mediaUrl(rel) {
+  if (!rel) return '';
+  if (/^(https?:|file:|blob:|data:)/i.test(rel)) return rel;
+  const clean = String(rel).replace(/^\.\//, '').replace(/^\/+/, '');
+  // Prefer same-origin relative when served over http(s) from Trainerize-Library
+  if (location.protocol === 'http:' || location.protocol === 'https:') {
+    try { return new URL(clean, location.href).href; } catch (e) { return clean; }
+  }
+  // file:// open — always pin to the real library root (fixes Hermes/temp opens)
+  return LIB_FILE_ROOT + clean;
+}
+const I18N = {
+  en: {
+    brandTitle: 'FitLife Workout',
+    brandSub: '3 ON → 1 OFF · SST + FST-7',
+    reset: 'Reset',
+    startDay: 'Start day',
+    kicker: 'Plansmith · Trainerize videos',
+    heroSub: 'Tap any exercise to load its Trainerize demo video. Check off work as you train. Rest timer sits in the player panel.',
+    todayProgress: 'Session progress',
+    week5: 'Week 5+ Progression',
+    videoNote: 'Videos load from your local Trainerize-Library folder. Keep this HTML next to default/ and thumbnails/.',
+    selectedClip: 'Selected clip',
+    pickExercise: 'Pick an exercise to load form + video.',
+    playerEmpty: 'Trainerize demo appears here.',
+    cueLabel: 'Coaching cue',
+    techniqueLabel: 'Technique',
+    restTimer: 'Rest timer',
+    start: 'Start',
+    pause: 'Pause',
+    video: 'Video',
+    tapToPlay: 'Tap exercise to play video',
+    done: 'Done',
+    play: 'Play',
+    noVideo: 'No local video for this drill.',
+    sets: 'Sets',
+    reps: 'Reps',
+    rest: 'Rest',
+    rpe: 'RPE',
+  },
+  ar: {
+    brandTitle: 'تمرين فيت لايف',
+    brandSub: '٣ تشغيل → ١ راحة',
+    reset: 'تصفير',
+    startDay: 'ابدأ اليوم',
+    kicker: 'بلانسميث · فيديوهات ترينرايز',
+    heroSub: 'اضغط على أي تمرين لعرض فيديو ترينرايز. علّم التمارين أثناء التدريب. مؤقت الراحة في لوحة الفيديو.',
+    todayProgress: 'تقدّم الحصة',
+    week5: 'التقدم بعد الأسبوع 4',
+    videoNote: 'الفيديوهات من مجلد Trainerize-Library المحلي. خلّي ملف HTML بجانب default/ و thumbnails/.',
+    selectedClip: 'المقطع المحدد',
+    pickExercise: 'اختَر تمرين لتحميل الفورم والفيديو.',
+    playerEmpty: 'فيديو ترينرايز يظهر هون.',
+    cueLabel: 'نقطة تدريب',
+    techniqueLabel: 'تقنية',
+    restTimer: 'مؤقت الراحة',
+    start: 'ابدأ',
+    pause: 'إيقاف',
+    video: 'فيديو',
+    tapToPlay: 'اضغط تمرين لتشغيل الفيديو',
+    done: 'تم',
+    play: 'شغّل',
+    noVideo: 'ما في فيديو محلي لهالتمرين.',
+    sets: 'مجموعات',
+    reps: 'تكرار',
+    rest: 'راحة',
+    rpe: 'RPE',
+  }
+};
+
+const state = {
+  lang: localStorage.getItem(STORAGE_KEY + '_lang') || 'en',
+  dayId: localStorage.getItem(STORAGE_KEY + '_day') || PLAN.days[0].id,
+  done: JSON.parse(localStorage.getItem(STORAGE_KEY + '_done') || '{}'),
+  currentKey: null,
+  timer: { left: 0, total: 0, running: false, handle: null }
+};
+
+const $ = (id) => document.getElementById(id);
+const t = (key) => (I18N[state.lang] && I18N[state.lang][key]) || I18N.en[key] || key;
+
+function save() {
+  localStorage.setItem(STORAGE_KEY + '_lang', state.lang);
+  localStorage.setItem(STORAGE_KEY + '_day', state.dayId);
+  localStorage.setItem(STORAGE_KEY + '_done', JSON.stringify(state.done));
+}
+
+function applyStaticI18n() {
+  document.documentElement.lang = state.lang;
+  document.documentElement.dataset.lang = state.lang;
+  document.documentElement.dir = state.lang === 'ar' ? 'rtl' : 'ltr';
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    el.textContent = t(key);
+  });
+  $('langBtn').textContent = state.lang === 'en' ? 'AR' : 'EN';
+}
+
+function dayObj() { return PLAN.days.find(d => d.id === state.dayId) || PLAN.days[0]; }
+
+function itemKey(dayId, sectionId, idx) { return `${dayId}::${sectionId}::${idx}`; }
+
+function dayStats(day) {
+  let total = 0, done = 0;
+  day.sections.forEach(sec => sec.items.forEach((_, i) => {
+    total += 1;
+    if (state.done[itemKey(day.id, sec.id, i)]) done += 1;
+  }));
+  return { total, done, pct: total ? Math.round(done/total*100) : 0 };
+}
+
+function renderMeta() {
+  const m = PLAN.meta;
+  $('heroTitle').textContent = state.lang === 'ar' ? m.name_ar : m.name_en;
+  $('metaRow').innerHTML = [
+    ['Level', m.level],
+    ['Days', m.days_per_week + '/wk'],
+    ['Goal', m.goal],
+    ['Priority', m.priority_muscle],
+    ['Mode', m.mode],
+    ['Weeks', m.duration_weeks],
+  ].map(([k,v]) => `<span class="tag"><b>${k}</b> · ${v}</span>`).join('');
+
+  const sst = (PLAN.techniques && (PLAN.techniques.SST || PLAN.techniques['SST-RIV'] || PLAN.techniques.cluster)) || {};
+  const fst = (PLAN.techniques && (PLAN.techniques['FST-7'] || PLAN.techniques.cluster)) || {};
+  const techSST = $('techSST');
+  const techCluster = $('techCluster');
+  if (techSST) techSST.textContent = sst[state.lang] || sst.en || '';
+  if (techCluster) techCluster.textContent = fst[state.lang] || fst.en || '';
+
+  const list = PLAN.progression[state.lang] || PLAN.progression.en;
+  $('progList').innerHTML = list.map(x => `<li>${x}</li>`).join('');
+}
+
+function renderDayNav() {
+  const nav = $('dayNav');
+  nav.innerHTML = PLAN.days.map(d => {
+    const st = dayStats(d);
+    const title = state.lang === 'ar' ? d.name_ar : d.name_en;
+    const sub = state.lang === 'ar' ? d.focus_ar : d.focus_en;
+    return `<button class="day-btn ${d.id===state.dayId?'active':''}" data-day="${d.id}" type="button">
+      <div class="d-title">${title}</div>
+      <div class="d-sub">${sub}</div>
+      <div class="d-prog"><i style="width:${st.pct}%"></i></div>
+    </button>`;
+  }).join('');
+  nav.querySelectorAll('[data-day]').forEach(btn => btn.addEventListener('click', () => {
+    state.dayId = btn.dataset.day; save(); renderAll();
+  }));
+}
+
+function renderProgress() {
+  const st = dayStats(dayObj());
+  $('progText').textContent = `${st.done} / ${st.total}`;
+  $('progPct').textContent = `${st.pct}%`;
+  $('progFill').style.width = st.pct + '%';
+}
+
+function renderDay() {
+  const day = dayObj();
+  const panel = $('dayPanel');
+  panel.innerHTML = day.sections.map(sec => {
+    const name = state.lang === 'ar' ? sec.name_ar : sec.name_en;
+    const time = sec.time ? ` · ${sec.time}` : '';
+    const cards = sec.items.map((item, idx) => {
+      const key = itemKey(day.id, sec.id, idx);
+      const done = !!state.done[key];
+      const title = state.lang === 'ar' ? item.name_ar : item.name_en;
+      const media = item.media_label || '';
+      const stats = [];
+      if (item.sets) stats.push(`<span class="stat">${t('sets')} ${item.sets}</span>`);
+      if (item.reps) stats.push(`<span class="stat">${t('reps')} ${item.reps}</span>`);
+      if (item.rest) stats.push(`<span class="stat">${t('rest')} ${item.rest}</span>`);
+      if (item.rpe) stats.push(`<span class="stat rpe">${t('rpe')} ${item.rpe}</span>`);
+      if (item.technique) stats.push(`<span class="stat tech">${item.technique}</span>`);
+      const thumb = item.thumb
+        ? `<img src="${mediaUrl(item.thumb)}" alt="" loading="lazy" />`
+        : `<div class="ph">${item.video ? 'VIDEO' : '—'}</div>`;
+      return `<article class="card ${done?'done':''}" data-key="${key}" data-day="${day.id}" data-sec="${sec.id}" data-idx="${idx}">
+        <div class="thumb">${thumb}${item.video?`<span class="play">▶</span>`:''}</div>
+        <div class="body">
+          <h4 class="title">${title}</h4>
+          <div class="subtitle">${media}</div>
+          <div class="stats">${stats.join('')}</div>
+        </div>
+        <div class="actions">
+          <button class="icon-btn play-btn" title="${t('play')}" type="button">▶</button>
+          <button class="icon-btn check-btn ${done?'on':''}" title="${t('done')}" type="button">${done?'✓':'○'}</button>
+        </div>
+      </article>`;
+    }).join('');
+    return `<section class="section">
+      <div class="section-head"><h3>${name}</h3><span>${sec.items.length}${time}</span></div>
+      <div class="cards">${cards}</div>
+    </section>`;
+  }).join('');
+
+  panel.querySelectorAll('.card').forEach(card => {
+    const open = () => selectExercise(card.dataset.day, card.dataset.sec, Number(card.dataset.idx));
+    card.querySelector('.thumb').addEventListener('click', open);
+    card.querySelector('.body').addEventListener('click', open);
+    card.querySelector('.play-btn').addEventListener('click', open);
+    card.querySelector('.check-btn').addEventListener('click', (e) => {
+      e.stopPropagation();
+      const key = card.dataset.key;
+      state.done[key] = !state.done[key];
+      save(); renderAll(false);
+    });
+  });
+}
+
+function selectExercise(dayId, secId, idx) {
+  const day = PLAN.days.find(d => d.id === dayId);
+  const sec = day.sections.find(s => s.id === secId);
+  const item = sec.items[idx];
+  state.currentKey = itemKey(dayId, secId, idx);
+  const title = state.lang === 'ar' ? item.name_ar : item.name_en;
+  $('viewerTitle').textContent = title;
+  const bits = [];
+  if (item.sets) bits.push(`${t('sets')} ${item.sets}`);
+  if (item.reps) bits.push(`${t('reps')} ${item.reps}`);
+  if (item.rest) bits.push(`${t('rest')} ${item.rest}`);
+  if (item.rpe) bits.push(`${t('rpe')} ${item.rpe}`);
+  $('viewerMeta').textContent = bits.join(' · ') || (item.media_label || '');
+  $('viewerCue').textContent = state.lang === 'ar' ? item.cue_ar : item.cue_en;
+  $('miniTitle').textContent = title;
+  $('miniSub').textContent = bits.join(' · ') || t('tapToPlay');
+
+  if (item.technique && PLAN.techniques[item.technique]) {
+    $('viewerTechBox').hidden = false;
+    $('viewerTech').textContent = `${item.technique}: ${PLAN.techniques[item.technique][state.lang] || PLAN.techniques[item.technique].en}`;
+  } else {
+    $('viewerTechBox').hidden = true;
+  }
+
+  const player = $('player');
+  const empty = $('playerEmpty');
+  const banner = $('mediaBanner');
+  if (item.video) {
+    const url = mediaUrl(item.video);
+    empty.hidden = true;
+    player.hidden = false;
+    player.setAttribute('playsinline', '');
+    player.setAttribute('webkit-playsinline', '');
+    // Always re-assign via <source> for reliable reload across browsers
+    player.pause();
+    while (player.firstChild) player.removeChild(player.firstChild);
+    const source = document.createElement('source');
+    source.src = url;
+    source.type = 'video/mp4';
+    player.appendChild(source);
+    player.load();
+    const onErr = () => {
+      empty.hidden = false;
+      player.hidden = true;
+      empty.innerHTML = (state.lang === 'ar'
+        ? `ما قدر يحمّل الفيديو.<br><code>${url}</code><br>شغّل السيرفر المحلي وافتح:<br><code>${LIB_HTTP_HINT}</code>`
+        : `Could not load video.<br><code>${url}</code><br>Serve the library over HTTP and open:<br><code>${LIB_HTTP_HINT}</code>`);
+      if (banner) {
+        banner.classList.add('show');
+        banner.innerHTML = location.protocol === 'file:'
+          ? `Browser is blocking local video on <code>file://</code>. Use the local server: <code>${LIB_HTTP_HINT}</code>`
+          : `Video failed to load from <code>${url}</code>. Confirm the server root is <code>Trainerize-Library</code>.`;
+      }
+    };
+    player.onerror = onErr;
+    source.onerror = onErr;
+    player.onloadeddata = () => {
+      empty.hidden = true;
+      player.hidden = false;
+      if (banner) banner.classList.remove('show');
+    };
+    // Autoplay may be blocked; controls still show the frame
+    const tryPlay = () => player.play().catch(() => {});
+    if (player.readyState >= 2) tryPlay();
+    else player.addEventListener('loadeddata', tryPlay, { once: true });
+  } else {
+    player.pause();
+    player.removeAttribute('src');
+    while (player.firstChild) player.removeChild(player.firstChild);
+    player.load();
+    player.hidden = true;
+    empty.hidden = false;
+    empty.textContent = t('noVideo');
+  }
+
+  // preload rest from exercise
+  if (item.rest) {
+    const secs = parseInt(String(item.rest).replace(/[^0-9]/g,''), 10);
+    if (secs && !state.timer.running) setTimer(secs, false);
+  }
+}
+
+function setTimer(seconds, autoStart=true) {
+  clearInterval(state.timer.handle);
+  state.timer.left = seconds;
+  state.timer.total = seconds;
+  state.timer.running = false;
+  updateTimerUI();
+  if (autoStart) startTimer();
+}
+function updateTimerUI() {
+  const s = Math.max(0, state.timer.left|0);
+  const mm = String(Math.floor(s/60)).padStart(2,'0');
+  const ss = String(s%60).padStart(2,'0');
+  $('timerDisplay').textContent = `${mm}:${ss}`;
+  $('timerToggle').textContent = state.timer.running ? t('pause') : t('start');
+}
+function startTimer() {
+  if (state.timer.left <= 0) return;
+  state.timer.running = true;
+  updateTimerUI();
+  state.timer.handle = setInterval(() => {
+    state.timer.left -= 1;
+    updateTimerUI();
+    if (state.timer.left <= 0) {
+      clearInterval(state.timer.handle);
+      state.timer.running = false;
+      updateTimerUI();
+      try { const ctx = new (window.AudioContext||window.webkitAudioContext)(); const o=ctx.createOscillator(); const g=ctx.createGain(); o.connect(g); g.connect(ctx.destination); o.frequency.value=880; g.gain.value=0.04; o.start(); setTimeout(()=>{o.stop();ctx.close();}, 180); } catch(e) {}
+    }
+  }, 1000);
+}
+function pauseTimer() {
+  clearInterval(state.timer.handle);
+  state.timer.running = false;
+  updateTimerUI();
+}
+
+function renderAll(reselect=true) {
+  applyStaticI18n();
+  renderMeta();
+  renderDayNav();
+  renderDay();
+  renderProgress();
+  if (reselect && state.currentKey) {
+    const [dayId, secId, idx] = state.currentKey.split('::');
+    // refresh labels only
+    const day = PLAN.days.find(d => d.id === dayId);
+    const sec = day && day.sections.find(s => s.id === secId);
+    const item = sec && sec.items[Number(idx)];
+    if (item) {
+      $('viewerTitle').textContent = state.lang === 'ar' ? item.name_ar : item.name_en;
+      $('viewerCue').textContent = state.lang === 'ar' ? item.cue_ar : item.cue_en;
+    }
+  }
+}
+
+// events
+$('langBtn').addEventListener('click', () => {
+  state.lang = state.lang === 'en' ? 'ar' : 'en';
+  save(); renderAll();
+});
+$('resetBtn').addEventListener('click', () => {
+  if (confirm(state.lang==='ar' ? 'تصفير تقدم هاليوم؟' : 'Reset this plan progress?')) {
+    state.done = {}; save(); renderAll();
+  }
+});
+$('startBtn').addEventListener('click', () => {
+  const day = dayObj();
+  const firstMain = day.sections.find(s => s.id === 'main') || day.sections[0];
+  selectExercise(day.id, firstMain.id, 0);
+  $('viewer').scrollIntoView({ behavior:'smooth', block:'start' });
+});
+$('timerToggle').addEventListener('click', () => {
+  if (state.timer.running) pauseTimer(); else startTimer();
+});
+$('timerReset').addEventListener('click', () => setTimer(state.timer.total || 0, false));
+document.querySelectorAll('[data-rest]').forEach(btn => btn.addEventListener('click', () => setTimer(Number(btn.dataset.rest), true)));
+$('jumpViewer').addEventListener('click', () => $('viewer').scrollIntoView({ behavior:'smooth', block:'start' }));
+
+// boot
+renderAll();
+// auto-select first main lift of current day
+(() => {
+  const day = dayObj();
+  const main = day.sections.find(s => s.id === 'main') || day.sections[0];
+  selectExercise(day.id, main.id, 0);
+})();
+</script>
+</body>
+</html>
